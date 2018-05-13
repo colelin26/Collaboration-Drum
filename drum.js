@@ -1,8 +1,9 @@
 window.addEventListener('keydown', playSound)
-window.addEventListener('click', changeButton)
 
 var change = false; // indicates if we need to change the key of the buttom
 var id;
+var cl;
+var backup;
 
 function playSound(e) {
   if (change === false) {
@@ -17,29 +18,42 @@ function playSound(e) {
         each.classList.add('playing');
       });
     } else {
+      console.log(backup);
+      cl = backup;
+      console.log(cl);
+        if (cl === undefined) {
+          cl = backup;
+          console.log(cl);
+        }
       console.log(String.fromCharCode(e.keyCode));
-      console.log(id);
-      change = false;
-      let btn = document.querySelector(`#${id}`);
-      btn.innerHTML=`<kbd>${String.fromCharCode(e.keyCode)}</kbd>`;
+      console.log(cl);
+      let btn = document.querySelector(`#${cl}`);
+      console.log(btn);
+      let btnPar = btn.parentElement;
+      btnPar.querySelector(`#${cl}`).innerHTML=`<kbd>${String.fromCharCode(e.keyCode)}</kbd>`;
+      btnPar.setAttribute("data-key", e.keyCode);
 
-      let dataKey = btn.parentElement.attributes[0].value;
-      console.log(dataKey);
+      const audio = document.querySelector(`audio[class="${cl}"]`);
 
-      const audio = document.querySelector(`audio[data-key="${dataKey}"]`);
-      const key = document.querySelector(`.key[data-key="${dataKey}"]`);
       audio.setAttribute("data-key", e.keyCode);
-      key.setAttribute("data-key", e.keyCode);
+      change = false;
     }
   }
 
 
 function changeButton(btn) {
   change = true;
+
   console.log(btn);
-  var backup = id;
-  id = btn.id;
-  if (id === undefined) id = backup;
+
+  console.log(btn.parentElement);
+
+  var cl = btn.parentElement.querySelector(".sound").className.split(' ')[1];
+  console.log(cl);
+  if (cl===undefined) return;
+  backup = cl;
+  console.log(cl);
+
   btn.innerHTML="?";
 }
 
