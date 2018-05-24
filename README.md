@@ -4,9 +4,9 @@ A real-time online drum kit powered by Express.js and Socket.io.
 
 ## Install
 
-
-1.  ```node app.js``` in your shell
-2. Visit http://localhost:5000 in your browser.
+1. run command ```npm install``` to install the dependencies
+2. run command ```node app.js```
+3. Visit http://localhost:5000 in your browser.
 
 ## Instruction
 

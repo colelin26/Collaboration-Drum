@@ -6,6 +6,28 @@ var change = false; // indicates if we need to change the key of the buttom
 var cl; // the name of the changed buttom
 var backup; // perform a backup check for cl
 
+// Keystroke-recorder
+/* import $ from 'jquery'
+import KeystrokeRecorder from 'keystroke-recorder'
+var keystrokeRecorder = new KeystrokeRecorder({
+  omittedKeys: ['Tab', 'Meta', 'Control', 'Alt', 'Shift']
+})
+
+$('#record-btn').click(() => {
+  keystrokeRecorder.record()
+})
+
+$('#stop-btn').click(() => {
+  keystrokeRecorder.stop()
+  console.log(keystrokeRecorder.json)
+})
+
+$('#replay-btn').click(() => {
+  keystrokeRecorder.replay('#replay-pad').then(() => {
+    console.log('done replaying!')
+  })
+})
+*/
 
 // Look for the keydown event
 window.addEventListener('keydown', handleKey)
