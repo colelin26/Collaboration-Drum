@@ -22,7 +22,11 @@
   },
   "homepage": "https://github.com/colelin26/Drum-Kit#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "jquery": "^3.3.1",
+    "keystroke-recorder": "^2.3.0",
+    "mongoose": "^5.1.2",
     "socket.io": "^2.1.1"
   }
 }
