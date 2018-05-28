@@ -12,3 +12,5 @@ A real-time online drum kit powered by Express.js and Socket.io.
 
 1. Press the keys on the keyboards to play the drum!
 2. Click the buttoms to edit the keys.
+3. See more instruction about recording the music and playing JSON file on http://colelin.com/project
+http://colelin.com/project
