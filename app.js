@@ -18,9 +18,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Schema
 var nameSchema = new mongoose.Schema({
-  firstName: String,
-  lastNameName: String,
-  Music: String
+  email: String,
+  password: String,
+  jsonmusic: String
 });
 
 

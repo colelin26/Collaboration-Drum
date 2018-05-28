@@ -1,59 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Collaboration Drum</title>
   <link rel="stylesheet" href="/static/style.css">
-  <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Tajawal">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tajawal">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   <script src="/socket.io/socket.io.js"></script>
 </head>
+
 <body>
 
 
 
-<div class="container-fluid bg">
-  <div class="h3">Currently Online:</div>
-  <div id="logo" class="text-center">Collaboration Drum</div>
-  <div class="keys rows">
-    <div data-key="65" class="key col-lg-2">
-      <button id="clap" onclick="changeButton(this)"><kbd>A</kbd></button>
-      <span class="sound clap">clap</span>
+  <div class="cover text-center bg">
+
+    <div class="h3">Currently Online:</div>
+
+    <nav class="navbar navbar-toggleable-sm navbar-trans navbar-inverse">
+    				<div class="container">
+    					<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarToggler-1" aria-controls="navbarToggler-1" aria-expanded="false" aria-label="Toggle navigation">
+    						<span class="navbar-toggler-icon"></span>
+    					</button>
+    					<a class="navbar-brand" href="#">Your Online Music Kit</a>
+    					<div class="collapse navbar-collapse pull-xs-right justify-content-end" id="navbarToggler-1">
+    						<ul class="navbar-nav mt-2 mt-md-0">
+    							<li class="nav-item active">
+    								<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+    							</li>
+    							<li class="nav-item">
+    								<a class="nav-link" href="http://colelin.com">Other Works</a>
+    							</li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="http://colelin.com">Chat Online</a>
+                  </li>
+    							<li class="nav-item">
+    								<a class="nav-link" href="mailto:d43lin@edu.uwaterloo.ca"></a>
+    							</li>
+
+
+    							<li class="nav-item">
+
+                  <form id="signin" class="navbar-form navbar-right" role="form" method="post" action="/addmusic">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="email" type="email" class="form-control" name="email" value="" placeholder="Email Address">
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input id="password" type="password" class="form-control" name="password" value="" method="post" placeholder="Password">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit Music</button>
+               </form>
+    							<!--	<a class="btn btn-outline-white btn-outline" href="#"><i class="fa fa-user"></i> Login
+                  </a> -->
+    							</li>
+    						</ul>
+    					</div>
+    				</div>
+    			</nav>
+	<div class="cover-container pb-5">
+    <div class="cover-inner container">
+    <h1 class="jumbotron-heading" id="logo">Collaboration Drum</h1>
+
+    <div class="playset">
+              <p><span id="seconds">00</span>:<span id="tens">00</span></p>
+							<button id="record" class="btn btn-outline-white btn-lg mb-2 mr-2 ml-2">Record</button>
+							<button id="play" class="btn btn-outline-white btn-lg mb-2 ml-2 ml-2">Play JSON Music!</button>
+              <button id="reset" class="btn btn-outline-white btn-lg mb-2 ml-2 ml-2">Reset</button>
+		</div>
+
+    <div class="form-group playset transparent-input">
+
+        <label for="exampleFormControlTextarea1">Recorded JSON MUSIC</label>
+        <textarea class="form-control rounded-0 transparent-input" name="jsonmusic" id="jsonmusic" form="signin" rows="10" placeholder="1. Press Record and record your music. 2. Copy the JSON Music Text and then Press "Play" the music"></textarea>
     </div>
-    <div data-key="83" class="key col-lg-2">
-      <button id="hihat" onclick="changeButton(this)"><kbd>S</kbd></button>
-      <span class="sound hihat">hibat</span>
-    </div>
-    <div data-key="68" class="key col-lg-2">
-      <button id="kick"  onclick="changeButton(this)"><kbd>D</kbd></button>
-      <span class="sound kick">kick</span>
-    </div>
-    <div data-key="70" class="key col-lg-2">
-      <button id="openhat"  onclick="changeButton(this)"><kbd>F</kbd></button>
-      <span class="sound openhat">openhat</span>
-    </div>
-    <div data-key="71" class="key col-lg-2">
-      <button id="boom"  onclick="changeButton(this)"><kbd>G</kbd></button>
-      <span class="sound boom">boom</span>
-    </div>
-    <div data-key="72" class="key col-lg-2">
-      <button id="ride"  onclick="changeButton(this)"><kbd>H</kbd></button>
-      <span class="sound ride">ride</span>
-    </div>
-    <div data-key="74" class="key col-lg-2">
-      <button id="snare"  onclick="changeButton(this)"><kbd>J</kbd></button>
-      <span class="sound snare">snare</span>
-    </div>
-    <div data-key="75" class="key col-lg-2">
-      <button id="tom"  onclick="changeButton(this)"><kbd>K</kbd></button>
-      <span class="sound tom">tom</span>
-    </div>
-    <div data-key="76" class="key col-lg-2">
-      <button id="tink"  onclick="changeButton(this)"><kbd>L</kbd></button>
-      <span class="sound tink">tink</span>
+
+
+    <div class="keys rows">
+      <div data-key="65" class="key col-lg">
+        <button id="clap" onclick="changeButton(this)"><kbd>A</kbd></button>
+        <span class="sound clap">clap</span>
+      </div>
+      <div data-key="83" class="key col-lg">
+        <button id="hihat" onclick="changeButton(this)"><kbd>S</kbd></button>
+        <span class="sound hihat">hibat</span>
+      </div>
+      <div data-key="68" class="key col-lg">
+        <button id="kick" onclick="changeButton(this)"><kbd>D</kbd></button>
+        <span class="sound kick">&nbsp kick &nbsp </span>
+      </div>
+      <div data-key="70" class="key col-lg">
+        <button id="openhat" onclick="changeButton(this)"><kbd>F</kbd></button>
+        <span class="sound openhat">openhat</span>
+      </div>
+      <div data-key="71" class="key col-lg">
+        <button id="boom" onclick="changeButton(this)"><kbd>G</kbd></button>
+        <span class="sound boom">boom</span>
+      </div>
+      <div data-key="72" class="key col-lg">
+        <button id="ride" onclick="changeButton(this)"><kbd>H</kbd></button>
+        <span class="sound ride">ride</span>
+      </div>
+      <div data-key="74" class="key col-lg">
+        <button id="snare" onclick="changeButton(this)"><kbd>J</kbd></button>
+        <span class="sound snare">snare</span>
+      </div>
+      <div data-key="75" class="key col-lg">
+        <button id="tom" onclick="changeButton(this)"><kbd>K</kbd></button>
+        <span class="sound tom">&nbsp tom &nbsp</span>
+      </div>
+      <div data-key="76" class="key col-lg">
+        <button id="tink" onclick="changeButton(this)"><kbd>L</kbd></button>
+        <span class="sound tink">tink</span>
+      </div>
     </div>
   </div>
+  </div>
+
 </div>
   <audio class="clap" data-key="65" src="/static/sounds/clap.wav"></audio>
   <audio class="hihat" data-key="83" src="/static/sounds/hihat.wav"></audio>
@@ -65,9 +137,10 @@
   <audio class="tom" data-key="75" src="/static/sounds/tom.wav"></audio>
   <audio class="tink" data-key="76" src="/static/sounds/tink.wav"></audio>
 
-<script src="/static/game.js"></script>
+  <script src="/static/game.js"></script>
 
 
 
 </body>
+
 </html>
