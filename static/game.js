@@ -1,7 +1,7 @@
 var socket = io();
 var change = false; // indicates if we need to change the key of the buttom
 var cl; // the name of the changed buttom
-var recording = false;
+  var recording = false; // indicating if we are recording the music
 
 
 var music = {
@@ -38,7 +38,9 @@ function handleKey(e) {
       const class_name = each.className;
       socket.emit('audio', class_name);
       if (recording === true) {
+          console.log(music);
       music.sound.push(class_name)
+
       music.time.push(Number(seconds.innerHTML) * 1000 + Number(tens.innerHTML) * 10);
     }
     });
@@ -106,8 +108,8 @@ window.onload = function () {
     recording = false;
     console.log(appendJSONMusic.innerHTML);
     appendJSONMusic.innerHTML = JSON.stringify(music);
-    music.sound = {};
-    music.time = {};
+    music.sound = [];
+    music.time = [];
    }
   }
 
@@ -122,17 +124,17 @@ window.onload = function () {
   }
 
   buttonReset.onclick = function() {
+     buttonStart.innerHTML = "Record"
      clearInterval(Interval);
     tens = "00";
   	seconds = "00";
     appendTens.innerHTML = tens;
   	appendSeconds.innerHTML = seconds;
+    appendJSONMusic.innerHTML ="";
     recording = false;
-    music.sound = {};
-    music.time = {};
+    music.sound = [];
+    music.time = [];
   }
-
-
 
   function startTimer () {
     tens++;

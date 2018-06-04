@@ -6,9 +6,16 @@ var socketIO = require('socket.io');
 var app = express();
 var mongoose = require("mongoose");
 var bodyParser = require('body-parser');
+var flash = require('connect-flash');
+
+var morgan = require('morgan');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var server = http.Server(app);
 var io = socketIO(server);
-var currentlyOnline = 0;
+
+
+
 app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static'));
 mongoose.Promise = global.Promise;
@@ -25,7 +32,7 @@ var nameSchema = new mongoose.Schema({
 
 
 
-
+var currentlyOnline = 0;
 
 
 var User = mongoose.model("User", nameSchema);
